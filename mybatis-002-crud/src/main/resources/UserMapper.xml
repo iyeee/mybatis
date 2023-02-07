@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="t">
+    <!-- 大括号里写属性名-->
+    <!-- mybatis会去调用get方法-->
+    <!-- getCarNum()  #{carNum}-->
+    <insert id="insertCar">
+        insert into t_car(id,car_no,brand,guide_price,produce_time,car_type) values(null,#{carNo},#{brand},#{guidePrice},#{produceTime},#{carType});
+    </insert>
+
+
+    <!--大括号里可以随便写，但最好见名知意-->
+    <delete id="deleteById">
+        delete from t_car where id=#{id};
+    </delete>
+
+    <update id="updateById">
+        update t_car set car_no=#{carNo},guide_price=#{guidePrice},produce_time=#{produceTime},car_type=#{carType} where id =#{id}
+    </update>
+
+
+    <!--取别名和类对上-->
+    <select id="selectById" resultType="com.powernode.mybatis.pojo.Car">
+        select id,car_no as carNo,brand,guide_Price as guidePrice,produce_Time as produceTime,car_type as carType from t_car where id=#{id}
+
+    </select>
+
+    <select id="selectAll" resultType="com.powernode.mybatis.pojo.Car">
+        select id,car_no as carNo,brand,guide_Price as guidePrice,produce_Time as produceTime,car_type as carType from t_car
+    </select>
+</mapper>

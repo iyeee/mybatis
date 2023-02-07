@@ -4,15 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <settings>
-        <!--开启标准输出-->
-        <!--<setting name="logImpl" value="STDOUT_LOGGING"/>-->
-        <!--未指定自动查找第三方-->
         <setting name="logImpl" value="SLF4J"/>
     </settings>
+    <!--default默认环境，创建sqlSessionFactory对象的时候，没有指定环境的话，默认使用哪个环境-->
     <environments default="development">
-        <environment id="development">
-            <!--JDBC mybatis框架自己管理事务，自己采用原生的jdbc代码去管理事务-->
-            <!--MANAGED 交给别的容器管理-->
+        <!--其中的一个环境，连接的数据库是mybatis-->
+        <!--一个数据库对应一个sqlSessionFactory对象-->
+        <environment id="mybatisDB">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
@@ -21,12 +19,19 @@
                 <property name="password" value="123456"/>
             </dataSource>
         </environment>
+
+        <!--另一个环境，连接另一个数据库-->
+        <environment id="spring6DB">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/spring6"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
     </environments>
-    <!--指定XxxMapper.xml文件的路径-->
-    <!--resource属性自动会从类的根路径下开始查找资源-->
     <mappers>
         <mapper resource="CarMapper.xml"/>
-        <!--绝对路径加载资源-->
-        <!--<mapper url=""/>-->
     </mappers>
 </configuration>

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="s">
-   <insert id="insertCar">
+<mapper namespace="car">
+    <insert id="insertCar">
         insert into t_car(id,car_no,brand,guide_price,produce_time,car_type)
         values(null,'1003','丰田','30.0','2010-11-11','燃油车');
-   </insert>
+    </insert>
 </mapper>

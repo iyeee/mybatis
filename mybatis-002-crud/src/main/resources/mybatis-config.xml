@@ -4,15 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <settings>
-        <!--开启标准输出-->
-        <!--<setting name="logImpl" value="STDOUT_LOGGING"/>-->
-        <!--未指定自动查找第三方-->
         <setting name="logImpl" value="SLF4J"/>
     </settings>
     <environments default="development">
         <environment id="development">
-            <!--JDBC mybatis框架自己管理事务，自己采用原生的jdbc代码去管理事务-->
-            <!--MANAGED 交给别的容器管理-->
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
@@ -22,11 +17,8 @@
             </dataSource>
         </environment>
     </environments>
-    <!--指定XxxMapper.xml文件的路径-->
-    <!--resource属性自动会从类的根路径下开始查找资源-->
     <mappers>
         <mapper resource="CarMapper.xml"/>
-        <!--绝对路径加载资源-->
-        <!--<mapper url=""/>-->
+        <mapper resource="UserMapper.xml"/>
     </mappers>
 </configuration>
