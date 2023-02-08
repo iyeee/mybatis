@@ -3,21 +3,48 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <!--java.util.Properties类 是一个map集合-->
+    <!--<properties>-->
+    <!--    <property name="jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>-->
+    <!--    <property name="jdbc.url" value="jdbc:mysql://localhost:3306/mybatis"/>-->
+    <!--    <property name="jdbc.username" value="root"/>-->
+    <!--    <property name="jdbc.password" value="123456"/>-->
+    <!--</properties>-->
+    <!--resources下查找-->
+    <!--<properties resource="jdbc.properties"/>-->
+    <!--绝对路径加载资源-->
+    <properties url="file:///D:\Projects\IdeaProjects\java\mybatis\mybatis-003-configuration\src\main\resources\jdbc.properties"/>
     <settings>
         <setting name="logImpl" value="SLF4J"/>
     </settings>
     <!--default默认环境，创建sqlSessionFactory对象的时候，没有指定环境的话，默认使用哪个环境-->
-    <environments default="development">
+    <environments default="mybatisDB">
         <!--其中的一个环境，连接的数据库是mybatis-->
         <!--一个数据库对应一个sqlSessionFactory对象-->
         <environment id="mybatisDB">
             <transactionManager type="JDBC"/>
+            <!--给程序提供Connection的都叫数据源DataSource-->
+            <!--javax.sql.Datasource是jdk规定的接口-->
+            <!--数据库连接池就是一个数据源 druid c3p0 dbcp-->
+            <!--type属性用来指定数据源的类型-->
+            <!--UNPOOLED：不使用数据库连接池，每次请求过来之后，都是创建新的Connection对象-->
+            <!--POOLED：使用mybatis自己实现的数据库连接池-->
+            <!--JNDI：集成第三方连接池 JNDI是一套规范，是Java命名目录接口，Tomcat、Jetty、WebLogic、WebSphere服务器都实现了这个规范-->
+            <!--<dataSource type="UNPOOLED">-->
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/mybatis"/>
-                <property name="username" value="root"/>
-                <property name="password" value="123456"/>
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+                <property name="poolMaximumActiveConnections" value="10"/>
+                <property name="poolTimeToWait" value="2000"/>
+                <property name="poolMaximumCheckoutTime" value="10000"/>
+                <property name="poolMaximumIdleConnections" value="5"/>
             </dataSource>
+            <!--<dataSource type="JNDI">-->
+            <!--    <property name="initial_context" value=""/>-->
+            <!--    <property name="data_source" value=""/>-->
+            <!--</dataSource>-->
         </environment>
 
         <!--另一个环境，连接另一个数据库-->
@@ -33,5 +60,6 @@
     </environments>
     <mappers>
         <mapper resource="CarMapper.xml"/>
+        <!--<mapper url="绝对路径 CarMapper.xml"/>-->
     </mappers>
 </configuration>
