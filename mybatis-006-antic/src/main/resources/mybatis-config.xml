@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties url="file:///D:\Projects\IdeaProjects\java\mybatis\mybatis-003-configuration\src\main\resources\jdbc.properties"/>
+    <settings>
+        <setting name="logImpl" value="SLF4J"/>
+    </settings>
+    <environments default="mybatisDB">
+        <environment id="mybatisDB">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+                <property name="poolMaximumActiveConnections" value="10"/>
+                <property name="poolTimeToWait" value="2000"/>
+                <property name="poolMaximumCheckoutTime" value="10000"/>
+                <property name="poolMaximumIdleConnections" value="5"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="CarMapper.xml"/>
+        <mapper resource="LogMapper.xml"/>
+    </mappers>
+</configuration>
