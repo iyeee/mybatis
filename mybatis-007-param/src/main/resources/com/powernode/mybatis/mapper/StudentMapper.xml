@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powernode.mybatis.mapper.StudentMapper">
+    <insert id="insertStudentMap" parameterType="map">
+        insert into t_student(id,name,age,sex,height,birth) values(null,#{name},#{age},#{sex},#{height},#{birth})
+    </insert>
+    <insert id="insertByPOJO" parameterType="student">
+        insert into t_student(id,name,age,sex,height,birth) values(null,#{name},#{age},#{sex},#{height},#{birth})
+    </insert>
+    <!-- parameterType="java.lang.Long"告诉参数类型 但是mybatis类型带有自动推断机制，大部分情况下没有省略-->
+    <select id="selectById" resultType="Student" parameterType="java.lang.Long">
+        select * from t_student where id = #{id}
+    </select>
+    <select id="selectByName" resultType="Student" parameterType="string">
+        select * from t_student where name = #{name,javaType=String,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByBirth" resultType="Student" parameterType="date">
+        select * from t_student where birth=#{birth}
+    </select>
+    <select id="selectBySex" resultType="Student">
+        select * from t_student where sex=#{sex}
+    </select>
+    <!--#         select * from t_student where  name=#{arg0} and  sex=#{arg1}-->
+    <select id="selectByNameAndSex" resultType="Student">
+        select * from t_student where  name=#{param1} and  sex=#{param2}
+    </select>
+    <select id="selectByNameAndSex2" resultType="com.powernode.mybatis.pojo.Student">
+        select * from t_student where  name=#{name} and  sex=#{sex}
+    </select>
+
+</mapper>

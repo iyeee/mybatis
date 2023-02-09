@@ -8,12 +8,6 @@
         <setting name="logImpl" value="SLF4J"/>
     </settings>
     <typeAliases>
-        <!--起别名 不区分大小写-->
-        <!--<typeAlias type="com.powernode.mybatis.com.powernode.mybatis.pojo.Car" alias="Car"/>-->
-        <!--不写默认为Car-->
-        <!--<typeAlias type="com.powernode.mybatis.com.powernode.mybatis.pojo.Car"/>-->
-        <!--<typeAlias type="com.powernode.mybatis.pojo.Log" alias="log"/>-->
-        <!--包里全部为类简名，不区分大小写-->
         <package name="com.powernode.mybatis.pojo"/>
     </typeAliases>
 
@@ -33,15 +27,6 @@
         </environment>
     </environments>
     <mappers>
-        <!--<mapper resource="CarMapper.xml"/>-->
-        <!--<mapper resource="LogMapper.xml"/>-->
-        <!--<mapper url="绝对路径 CarMapper.xml"/>-->
-
-        <!--必须保证carMapper.xml和carMapper接口在同一包下,名字也一样-->
-        <!--java和resources 在target中在一个目录-->
-        <!--<mapper class="com.powernode.mybatis.mapper.CarMapper"/>-->
-
-        <!--必须保证carMapper.xml和carMapper接口在同一包下,名字也一样-->
         <package name="com.powernode.mybatis.mapper"/>
     </mappers>
 </configuration>

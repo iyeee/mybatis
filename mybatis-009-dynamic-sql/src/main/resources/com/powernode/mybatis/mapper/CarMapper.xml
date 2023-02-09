@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powernode.mybatis.mapper.CarMapper">
+
+    <sql id="code">
+        insert into t_car values
+    </sql>
+    <insert id="insertBatch">
+        <include refid="code"/>
+        <foreach collection="cars" item="car" separator=",">
+            (null,#{car.carNo},#{car.brand},#{car.guidePrice},#{car.produceTime},#{car.carType})
+        </foreach>
+    </insert>
+    <update id="updateById">
+        update t_car set
+             car_no =#{carNo},
+            brand=#{brand},
+            guide_price=#{guidePrice},
+            produce_time=#{produceTime},
+            car_type=#{produceTime}
+        where
+            id=#{id}
+
+    </update>
+    <update id="updateBySet">
+        update t_car
+        <set>
+            <if test="carNo!=null and carNo!=''">car_no =#{carNo},</if>
+            <if test="brand!=null and brand!=''">car_no =#{brand},</if>
+            <if test="guidePrice!=null and guidePrice!=''">guidePrice =#{guidePrice},</if>
+            <if test="produceTime!=null and produceTime!=''">produce_time =#{produceTime},</if>
+            <if test="carType!=null and carType!=''">car_type =#{carType}</if>
+        </set>
+
+        where id=#{id}
+    </update>
+    <!-- collection 注定数组或者集合
+     item  数组或集合中的元素
+      separator 循环之间的分隔符
+      collection 放array 或者 arg0   map.put(array,数组)或者map.put(arg0,数组),map.put(ids,数组)
+      open 最前面以什么开始
+      close 最后面以什么结束-->
+    <!--<delete id="deleteByIds">-->
+    <!--    delete from t_car where id in (-->
+    <!--        <foreach collection="ids" item="id" separator=",">-->
+    <!--            #{id}-->
+    <!--        </foreach>-->
+    <!--        )-->
+    <!--</delete>-->
+    <delete id="deleteByIds">
+        delete from t_car where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+
+    </delete>
+    <delete id="deleteByIds2">
+        delete from t_car where
+        <foreach collection="ids" item="id" separator="or">
+            id =#{id}
+        </foreach>
+    </delete>
+
+    <!--if中test属性必须 true则拼接-->
+    <!--test 中 使用了@Param注解，出现的是注解指定的参数名 @Param("brand")-brand-->
+    <!--没有使用@Param注解，test中出现的是param1 param2 param3 param4 -->
+    <!--当使用了pojo 出现的是pojo 的属性名-->
+    <!--动态sql不能使用&& 只能使用 and-->
+    <select id="selectByMultiCondition" resultType="Car">
+        select * from t_car where 1=1
+        <if test="brand!=null and brand !=''">
+            and brand like '%${brand}%'
+        </if>
+        <if test="guidePrice!=null and guidePrice !=''">
+            and guide_price > #{guidePrice}
+        </if>
+        <if test="carType!=null and carType !=''">
+            and car_type=#{carType}
+        </if>
+    </select>
+    <!--where标签专门负责where子句动态生成-->
+    <select id="selectByMultiConditionWithWhere" resultType="Car">
+        select * from t_car
+        <where>
+            <if test="brand!=null and brand !=''">
+                brand like '%${brand}%'
+            </if>
+            <if test="guidePrice!=null and guidePrice !=''">
+                and guide_price > #{guidePrice}
+            </if>
+            <if test="carType!=null and carType !=''">
+                and car_type=#{carType}
+            </if>
+
+        </where>
+    </select>
+
+    <!--prefixOverrides  删除前缀-->
+    <!--suffix  加后缀-->
+    <!--prefix  加前缀-->
+    <!--suffixOverrides  删除后缀-->
+    <!--prefix="where" trim标签所有内容的前面添加where-->
+    <!--suffixOverrides="and 把trim标签中内容额外的and 或or去掉-->
+    <select id="selectByMultiConditionWithTrim" resultType="Car">
+        select * from t_car
+        <trim prefix="where" suffixOverrides="and">
+            <if test="brand!=null and brand !=''">
+                brand like '%${brand}%' and
+            </if>
+            <if test="guidePrice!=null and guidePrice !=''">
+                guide_price > #{guidePrice} and
+            </if>
+            <if test="guidePrice!=null and guidePrice !=''">
+                car_type=#{carType}
+            </if>
+        </trim>
+    </select>
+    <select id="selectByChoose" resultType="Car">
+        select * from  t_car
+        <where>
+            <choose>
+                <when test="brand!=null and brand !=''">
+                    brand like "%"#{brand}"%"
+                </when>
+                <when test="guidePrice!=null and guidePrice !=''">
+                    guide_price > #{guidePrice}
+                </when>
+                <otherwise>
+                    car_type=#{carType}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+
+</mapper>

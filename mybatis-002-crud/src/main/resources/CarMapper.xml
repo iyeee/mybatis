@@ -22,12 +22,12 @@
 
 
     <!--取别名和类对上-->
-    <select id="selectById" resultType="com.powernode.mybatis.pojo.Car">
+    <select id="selectById" resultType="com.powernode.mybatis.com.powernode.mybatis.pojo.Car">
         select id,car_no as carNo,brand,guide_Price as guidePrice,produce_Time as produceTime,car_type as carType from t_car where id=#{id}
 
     </select>
 
-    <select id="selectAll" resultType="com.powernode.mybatis.pojo.Car">
+    <select id="selectAll" resultType="com.powernode.mybatis.com.powernode.mybatis.pojo.Car">
         select id,car_no as carNo,brand,guide_Price as guidePrice,produce_Time as produceTime,car_type as carType from t_car
     </select>
 </mapper>

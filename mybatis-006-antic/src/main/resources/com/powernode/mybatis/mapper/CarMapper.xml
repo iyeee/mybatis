@@ -11,10 +11,10 @@
     <delete id="deleteBatch">
         delete from t_car where id in (${ids})
     </delete>
-    <select id="selectByType" resultType="com.powernode.mybatis.pojo.Car">
+    <select id="selectByType" resultType="com.powernode.mybatis.com.powernode.mybatis.pojo.Car">
         select id,car_no as carNo,brand,guide_Price as guidePrice,produce_Time as produceTime,car_type as carType from t_car where car_type=${carType}
     </select>
-    <select id="selectAllByAscOrDesc" resultType="com.powernode.mybatis.pojo.Car">
+    <select id="selectAllByAscOrDesc" resultType="com.powernode.mybatis.com.powernode.mybatis.pojo.Car">
         select id,car_no as carNo,brand,guide_Price as guidePrice,produce_Time as produceTime,car_type as carType from t_car order by produce_time ${ascOrDesc}
     </select>
     <!--&#45;&#45;         select id,car_no as carNo,brand,guide_Price as guidePrice,produce_Time as produceTime,car_type as carType from t_car where brand like '${brand}%'-->

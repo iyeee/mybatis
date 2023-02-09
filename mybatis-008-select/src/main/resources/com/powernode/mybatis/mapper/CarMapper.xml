@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powernode.mybatis.mapper.CarMapper">
+
+    <resultMap id="carResultMap" type="Car">
+        <!--主键配置为id，可以提高效率-->
+        <!--如果两者一样可以不配置-->
+        <id property="id" column="id"/>
+        <!--<result property="brand" column="brand"/>-->
+        <!--指定类型 可以提高效率-->
+        <result property="carNo" column="car_no" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="guidePrice" column="guide_price"/>
+        <result property="produceTime" column="produce_time"/>
+        <result property="carType" column="car_type"/>
+    </resultMap>
+    <select id="selectById" resultType="Car">
+        select * from  t_car where  id=#{id}
+    </select>
+
+    <select id="selectAll" resultType="Car">
+        select * from  t_car
+    </select>
+
+    <select id="selectByIdListMap" resultType="java.util.Map">
+        select * from  t_car
+    </select>
+    <select id="selectAllRetMap" resultType="java.util.Map">
+        select * from  t_car
+    </select>
+    <select id="selectAllByResultMap" resultMap="carResultMap">
+        select * from  t_car
+    </select>
+    <select id="selectAllByMapUnderscoreToCamelCase" resultType="Car">
+        select * from  t_car
+    </select>
+    <!--count(*)不去null  count(字段)去除null-->
+    <select id="selectTotal" resultType="java.lang.Long">
+        select count(*) from t_car
+    </select>
+</mapper>
