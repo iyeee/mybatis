@@ -1,8 +1,11 @@
 package com.powernode.mybatis.mapper;
 
+import com.powernode.mybatis.pojo.Car;
 import com.powernode.mybatis.utils.SqlSessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -37,5 +40,25 @@ public class CarMapperTest {
         sqlSession.commit();
         sqlSession.close();
 
+    }
+
+    @Test
+    public void selectByCarLike() {
+        SqlSession sqlSession = SqlSessionUtil.openSession();
+        CarMapper mapper = sqlSession.getMapper(CarMapper.class);
+        List<Car> cars = mapper.selectByCarLike("2");
+        cars.forEach(System.out::println);
+
+    }
+
+    @Test
+    public void insertCarUserGeneratedKeys() {
+        SqlSession sqlSession = SqlSessionUtil.openSession();
+        CarMapper mapper = sqlSession.getMapper(CarMapper.class);
+        Car car=new Car(null,"9991","dasd",30.0,"123","燃油车");
+        mapper.insertCarUserGeneratedKeys(car);
+        System.out.println(car);
+        sqlSession.commit();
+        sqlSession.close();
     }
 }

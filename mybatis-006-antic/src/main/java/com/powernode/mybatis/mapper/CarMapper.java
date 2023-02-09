@@ -10,9 +10,12 @@ import java.util.List;
  * @Version 1.0.1
  */
 public interface CarMapper {
+    int insertCarUserGeneratedKeys(Car car);
     List<Car> selectByType(String carType);
     List<Car> selectAllByAscOrDesc(String ascOrDesc);
 
     int deleteBatch(String ids);
+
+    List<Car> selectByCarLike(String brand);
 
 }

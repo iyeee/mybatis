@@ -10,6 +10,8 @@ import java.util.List;
  * @Version 1.0.1
  */
 public interface CarMapper {
+
+    List<Car> selectByCarLike(String brand);
     int insert(Car car);
     int deleteById(Long id);
     int update(Car car);
