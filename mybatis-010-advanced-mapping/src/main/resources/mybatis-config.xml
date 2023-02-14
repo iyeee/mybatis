@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="jdbc.properties"/>
+    <settings>
+        <setting name="logImpl" value="SLF4J"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!--延迟加载全局开关，实际开发中大部分开启-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+    </settings>
+    <typeAliases>
+        <package name="com.powernode.mybatis.pojo"/>
+    </typeAliases>
+
+    <environments default="mybatisDB">
+        <environment id="mybatisDB">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+                <property name="poolMaximumActiveConnections" value="10"/>
+                <property name="poolTimeToWait" value="2000"/>
+                <property name="poolMaximumCheckoutTime" value="10000"/>
+                <property name="poolMaximumIdleConnections" value="5"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <package name="com.powernode.mybatis.mapper"/>
+    </mappers>
+</configuration>

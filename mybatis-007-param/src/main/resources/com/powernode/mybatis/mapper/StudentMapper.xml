@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.powernode.mybatis.mapper.StudentMapper">
+<mapper namespace="com.powernode.mapper.com.powernode.mybatis.StudentMapper">
     <insert id="insertStudentMap" parameterType="map">
         insert into t_student(id,name,age,sex,height,birth) values(null,#{name},#{age},#{sex},#{height},#{birth})
     </insert>
@@ -26,7 +26,7 @@
     <select id="selectByNameAndSex" resultType="Student">
         select * from t_student where  name=#{param1} and  sex=#{param2}
     </select>
-    <select id="selectByNameAndSex2" resultType="com.powernode.mybatis.pojo.Student">
+    <select id="selectByNameAndSex2" resultType="com.powernode.pojo.com.powernode.mybatis.Student">
         select * from t_student where  name=#{name} and  sex=#{sex}
     </select>
 

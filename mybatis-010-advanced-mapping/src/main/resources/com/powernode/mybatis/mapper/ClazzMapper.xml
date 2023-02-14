@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.powernode.mapper.com.powernode.mybatis.ClazzMapper">
+
+    <resultMap id="clazzResultMap" type="Clazz">
+        <id property="cid" column="cid"/>
+        <id property="cname" column="cname"/>
+        <collection property="stus" ofType="Student" fetchType="eager">
+            <id property="sid" column="sid"/>
+            <result property="sname" column="sname"/>
+        </collection>
+    </resultMap>
+    
+    <resultMap id="clazzResultMapSep" type="Clazz">
+        <id property="cid" column="cid"/>
+        <result property="cname" column="cname"/>
+        <collection property="stus"
+                    select="com.powernode.mapper.com.powernode.mybatis.StudentMapper.selectByCidStep2"
+                    column="cid"/>
+    </resultMap>
+    <select id="selectByIdStep1" resultMap="clazzResultMapSep">
+        select cid,cname from t_clazz where cid=#{cid}
+    </select>
+
+    <select id="selectByCollection" resultMap="clazzResultMap">
+        select c.cid,c.cname,s.sid,s.sname from t_clazz c
+        left join t_stu s on c.cid=s.cid where c.cid=#{cid}
+    </select>
+</mapper>
