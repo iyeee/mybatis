@@ -2,11 +2,19 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.powernode.mybatis.mapper.CarMapper">
+<mapper namespace="com.powernode.mapper.com.powernode.mybatis.CarMapper">
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+    <!--默认情况下，二级缓存开启的
+    只需要在SqlMapper.xml文件中添加以下标签-->
     <insert id="insertClazz">
         insert into t_clazz values(#{cid},#{cname})
     </insert>
     <select id="selectById" resultType="car">
+        select * from  t_car where id=#{id}
+    </select>
+    <select id="selectById2" resultType="Car">
         select * from  t_car where id=#{id}
     </select>
 </mapper>

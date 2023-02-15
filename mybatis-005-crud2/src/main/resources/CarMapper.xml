@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.powernode.mybatis.mapper.CarMapper">
+<mapper namespace="com.powernode.mapper.com.powernode.mybatis.CarMapper">
 
     <insert id="insert">
         insert into t_car values (null,#{carNo},#{brand},#{guidePrice},#{produceTime},#{carType})
@@ -17,11 +17,11 @@
         delete from t_car where id = #{id}
     </delete>
 
-    <select id="selectById" resultType="com.powernode.mybatis.com.powernode.mybatis.pojo.Car">
+    <select id="selectById" resultType="com.powernode.mybatis.com.powernode.pojo.com.powernode.mybatis.Car">
         select  from t_car where id=#{id}
     </select>
 
-    <select id="selectAll" resultType="com.powernode.mybatis.com.powernode.mybatis.pojo.Car">
+    <select id="selectAll" resultType="com.powernode.mybatis.com.powernode.pojo.com.powernode.mybatis.Car">
         select id,car_no as carNo,brand,guide_Price as guidePrice,produce_Time as produceTime,car_type as carType from t_car
     </select>
 </mapper>

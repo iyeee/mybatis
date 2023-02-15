@@ -48,4 +48,23 @@ public class CarMapperTest {
 
 
     }
+
+    @Test
+    public void selectById2() throws IOException {
+        // 二级缓存对应SqlSessionFactory
+        SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
+        SqlSessionFactory build = sqlSessionFactoryBuilder.build(Resources.getResourceAsStream("mybatis-config.xml"));
+        SqlSession sqlSession1 = build.openSession();
+        SqlSession sqlSession2 = build.openSession();
+        CarMapper mapper3 = sqlSession1.getMapper(CarMapper.class);
+        CarMapper mapper4 = sqlSession2.getMapper(CarMapper.class);
+        Car car3 = mapper3.selectById(167L);
+        System.out.println(car3);
+
+        // 写入二级缓存 两次查询之间执行了增删改，缓存取消
+        sqlSession1.close();
+        Car car4 = mapper4.selectById(167L);
+        System.out.println(car4);
+        sqlSession2.close();
+    }
 }
